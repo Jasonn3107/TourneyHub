@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - Masuk ke Akun</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">TourneyHub</a>
+    </header>
+
+    <main class="main-content">
+        <div class="login-container">
+            <div class="illustration-section">
+                <div class="illustration-content">
+                    <div class="illustration-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h2 class="illustration-title">Selamat Datang Kembali!</h2>
+                    <p class="illustration-text">Masuk ke akun Anda dan lanjutkan petualangan gaming yang seru</p>
+                    
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">1K</span>
+                            <span class="stat-label">Member Bergabung</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Tournament Aktif</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Game Tersedia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-header">
+                    <h1 class="form-title">Masuk ke Akun</h1>
+                    <p class="form-subtitle">Akses dashboard dan ikuti tournament favorit Anda</p>
+                </div>
+
+                <form class="login-form" id="loginForm">
+                    <!-- Account Type Selection -->
+                    <div class="form-group">
+                        <label class="form-label">Tipe Akun</label>
+                        <div class="account-type-selection">
+                            <div class="account-type-option" data-type="participant">
+                                <input type="radio" id="login-participant" name="accountType" value="participant" required>
+                                <label for="login-participant" class="account-type-card">
+                                    <div class="account-type-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="account-type-content">
+                                        <h3>Participant</h3>
+                                        <p>Login sebagai peserta tournament</p>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="account-type-option" data-type="host">
+                                <input type="radio" id="login-host" name="accountType" value="host" required>
+                                <label for="login-host" class="account-type-card">
+                                    <div class="account-type-icon">
+                                        <i class="fas fa-crown"></i>
+                                    </div>
+                                    <div class="account-type-content">
+                                        <h3>Host</h3>
+                                        <p>Login sebagai penyelenggara tournament</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="emailUsername">Email atau Username</label>
+                        <input type="text" class="form-input" id="emailUsername" name="emailUsername" placeholder="Masukkan email atau username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" class="form-input" id="password" name="password" placeholder="Masukkan password Anda" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">Masuk ke Akun</span>
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <span>Memproses...</span>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="signup-link">
+                    Belum punya akun? <a href="signup.html">Daftar sekarang</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="login.js"></script>
+</body>
+</html> 

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - Pendaftaran Turnamen</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Override gradient judul dan garis atas card info turnamen */
+        .tournament-title {
+            color: #D9D9D9 !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            -webkit-text-fill-color: initial !important;
+            background-clip: initial !important;
+        }
+        .tournament-info-header::before {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="registration-header">
+        <div class="registration-header-content">
+            <a href="homepage.html" class="logo">TourneyHub</a>
+            <a href="#" class="back-btn" id="backBtn">
+                <i class="fas fa-arrow-left"></i>
+                Kembali
+            </a>
+        </div>
+    </header>
+
+    <div class="registration-container">
+        <!-- Tournament Info Header -->
+        <div class="tournament-info-header">
+            <h1 class="tournament-title" id="tournamentTitle">Loading...</h1>
+            <p class="tournament-subtitle" id="tournamentSubtitle">Loading...</p>
+            <div class="registration-deadline" id="registrationDeadline">
+                <i class="fas fa-clock"></i>
+                <span id="deadlineText">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="registration-success-message" id="successMessage">
+            <i class="fas fa-check-circle" style="font-size: 24px; margin-bottom: 10px;"></i>
+            <h3>Pendaftaran Berhasil!</h3>
+            <p>Terima kasih! Tim Anda telah berhasil terdaftar.</p>
+        </div>
+
+        <!-- Registration Form -->
+        <form class="registration-form" id="registrationForm">
+            <h2 class="registration-form-title">
+                <i class="fas fa-user-plus"></i>
+                Form Pendaftaran Tim
+            </h2>
+            <p class="registration-form-subtitle">Harap isi semua informasi dengan lengkap dan benar</p>
+
+            <!-- Team Information -->
+            <div class="registration-form-section">
+                <h3 class="registration-section-title">
+                    <i class="fas fa-users"></i>
+                    Informasi Tim / Informasi Peserta
+                </h3>
+                
+                <div class="registration-form-group">
+                    <label class="registration-form-label" for="teamName">
+                        Nama Tim / Nama Peserta <span class="required">*</span>
+                    </label>
+                    <input type="text" id="teamName" name="teamName" class="registration-form-input" placeholder="Masukkan nama Anda" required>
+                </div>
+
+                <div class="registration-form-group">
+                    <label class="registration-form-label" for="teamEmail">
+                        Email Tim / Peserta <span class="required">*</span>
+                    </label>
+                    <input type="email" id="teamEmail" name="teamEmail" class="registration-form-input" placeholder="Peserta@gmail.com" required>
+                </div>
+
+                <div class="registration-form-group">
+                    <label class="registration-form-label" for="whatsappNumber">
+                        Nomor WhatsApp Captain / Peserta <span class="required">*</span>
+                    </label>
+                    <input type="tel" id="whatsappNumber" name="whatsappNumber" class="registration-form-input" placeholder="0812-3456-7890" required>
+                </div>
+
+                <div class="registration-form-group">
+                    <label class="registration-form-label" for="infoSource">
+                        Sumber Informasi Turnamen <span class="required">*</span>
+                    </label>
+                    <select id="infoSource" name="infoSource" class="registration-form-select" required>
+                        <option value="">Pilih sumber informasi turnamen</option>
+                        <option value="website">Website TourneyHub</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="word-of-mouth">Bisikan Tetangga</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Team Members -->
+            <div class="registration-form-section">
+                <h3 class="registration-section-title">
+                    <i class="fas fa-gamepad"></i>
+                    Anggota Tim / Peserta
+                </h3>
+                
+                <div class="team-members">
+                    <div class="member-input">
+                        <div class="member-number">1</div>
+                        <input type="text" name="member1" class="registration-form-input member-name-input" placeholder="Nama Peserta (Wajib)" required>
+                    </div>
+                    <div class="member-input">
+                        <div class="member-number">2</div>
+                        <input type="text" name="member2" class="registration-form-input member-name-input" placeholder="Nama Peserta (Opsional)">
+                    </div>
+                    <div class="member-input">
+                        <div class="member-number">3</div>
+                        <input type="text" name="member3" class="registration-form-input member-name-input" placeholder="Nama Peserta (Opsional)">
+                    </div>
+                    <div class="member-input">
+                        <div class="member-number">4</div>
+                        <input type="text" name="member4" class="registration-form-input member-name-input" placeholder="Nama Peserta (Opsional)">
+                    </div>
+                    <div class="member-input">
+                        <div class="member-number">5</div>
+                        <input type="text" name="member5" class="registration-form-input member-name-input" placeholder="Nama Peserta (Opsional)">
+                    </div>
+                    <div class="member-input">
+                        <div class="member-number">S1</div>
+                        <input type="text" name="substitute1" class="registration-form-input member-name-input" placeholder="Nama Cadangan (Opsional)">
+                    </div>
+                    <div class="member-input">
+                        <div class="member-number">S2</div>
+                        <input type="text" name="substitute2" class="registration-form-input member-name-input" placeholder="Nama Cadangan (Opsional)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="terms-section">
+                <div class="registration-checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" class="registration-form-checkbox" required>
+                    <label for="terms" class="registration-checkbox-label">
+                        Saya telah membaca dan menyetujui <a href="#" target="_blank">syarat dan ketentuan</a> dari turnamen ini
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <input type="hidden" id="tournamentId" name="tournamentId" value="">
+            <div class="registration-submit-section">
+                <button type="submit" class="registration-submit-btn" id="submitBtn">
+                    Daftar Sekarang
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="registration-form.js"></script>
+</body>
+</html> 

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tournaments - TourneyHub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style-homepage.css">
+    <style>
+        .my-tournaments-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            color: #B8B8CC;
+            font-size: 16px;
+        }
+        
+        .tournaments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #B8B8CC;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            color: #FF4C29;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .browse-btn {
+            background: #00BFA6;
+            color: #1E1E2F;
+            padding: 10px 26px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,191,166,0.10);
+            vertical-align: middle;
+            line-height: 1.2;
+        }
+        
+        .browse-btn:hover {
+            background: #00A896;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(0,191,166,0.18);
+            transform: translateY(-2px) scale(1.03);
+        }
+        
+        .browse-btn i {
+            font-size: 20px;
+            color: #FF4C29;
+            margin-right: 4px;
+            transition: color 0.2s;
+            vertical-align: middle;
+            line-height: 1.2;
+            display: inline-block;
+            position: relative;
+            top: 4px;
+        }
+        
+        .filter-section {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #00BFA6;
+            color: #00BFA6;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: #00BFA6;
+            color: #1E1E2F;
+        }
+        
+        .filter-btn:hover {
+            background: #00BFA6;
+            color: #1E1E2F;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: transparent;
+            border: 2px solid #00BFA6;
+            color: #00BFA6;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-btn:hover {
+            background: #00BFA6;
+            color: #1E1E2F;
+        }
+        
+        .tournament-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-ongoing {
+            background: #00BFA6;
+            color: #1E1E2F;
+        }
+        
+        .status-completed {
+            background: #6C757D;
+            color: white;
+        }
+        
+        .status-upcoming {
+            background: #FFC107;
+            color: #1E1E2F;
+        }
+        
+        .status-registered {
+            background: #17A2B8;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .tournaments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-section {
+                justify-content: center;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+        }
+        
+        /* Simple green status badge for all pages */
+        .tournament-status,
+        .event-status,
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 2px 10px;
+            background: none !important;
+            border: none !important;
+            color: #43A047 !important;
+            box-shadow: none !important;
+            min-width: 0;
+            height: auto;
+            gap: 6px;
+        }
+        .tournament-status .status-dot,
+        .event-status .status-dot,
+        .status-badge .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #43A047 !important;
+            display: inline-block;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo" onclick="window.location.href='homepage.html'" style="cursor:pointer;">TourneyHub</div>
+        <nav class="nav-links">
+            <a href="sport.html">Sport</a>
+            <a href="esport.html">E-Sport</a>
+            <a href="my-tournaments.html" class="active">My Tournaments</a>
+            <a href="about-us.html">About Us</a>
+        </nav>
+        <div class="header-right">
+            <div class="user-profile">
+                <span class="user-name">User01</span>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="my-tournaments-container">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <i class="fas fa-trophy"></i>
+                    My Tournaments
+                </h1>
+                <p class="page-subtitle">Turnamen yang pernah Anda ikuti dan daftar</p>
+            </div>
+
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="registered">Registered</button>
+                <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+
+            <div id="tournamentsContainer">
+                <!-- Loading state -->
+                <div class="empty-state">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <h3>Memuat turnamen...</h3>
+                    <p>Mengambil data turnamen Anda</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="my-tournaments.js"></script>
+</body>
+</html> 

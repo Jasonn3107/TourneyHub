@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - Tournament Detail</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tournament Detail Specific Styles */
+        .tournament-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #B8B8CC;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #00BFA6;
+        }
+
+        .breadcrumb i {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .breadcrumb .current {
+            color: #00BFA6;
+        }
+
+        /* Tournament Header */
+        .tournament-header {
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tournament-header::before {
+            display: none;
+        }
+
+        .tournament-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge.featured {
+            background: #FF4C29;
+            color: white;
+        }
+
+        .badge.esport {
+            background: #00BFA6;
+            color: white;
+        }
+
+        .badge.live {
+            background: #4CAF50;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .badge.registration-open {
+            background: #2196F3;
+            color: white;
+        }
+
+        .badge.registration-closed {
+            background: #FF9800;
+            color: white;
+        }
+
+        .badge.cancelled {
+            background: #F44336;
+            color: white;
+        }
+
+        .badge.completed {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .badge.soon {
+            background: #FF5722;
+            color: white;
+        }
+
+        .badge.draft {
+            background: #607D8B;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .tournament-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: #D9D9D9;
+            margin-bottom: 10px;
+            line-height: 1.2;
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            background-clip: initial;
+        }
+
+        .tournament-game {
+            color: #B8B8CC;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .tournament-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-label {
+            color: #B8B8CC;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .stat-value.prize {
+            color: #FF4C29;
+            font-size: 24px;
+        }
+
+        /* Content Layout */
+        .tournament-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        /* Main Content */
+        .main-content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .tournament-info {
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .tournament-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-title i {
+            color: #00BFA6;
+        }
+
+        .info-content {
+            color: #B8B8CC;
+            line-height: 1.6;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-list .label {
+            color: #B8B8CC;
+        }
+
+        .info-list .value {
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .sidebar-card {
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-title i {
+            color: #FF4C29;
+        }
+
+        /* Registration Button */
+        .register-btn {
+            background: linear-gradient(135deg, #FF4C29, #E63E1F);
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .register-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 76, 41, 0.3);
+        }
+
+        .register-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Organizer Info */
+        .organizer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .organizer-info:hover {
+            background: rgba(0, 191, 166, 0.1);
+            transform: scale(1.02);
+        }
+
+        .organizer-avatar {
+            width: 50px;
+            height: 50px;
+            background: #00BFA6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .organizer-details h4 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .organizer-details p {
+            color: #B8B8CC;
+            font-size: 14px;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .contact-item {
+            color: #B8B8CC;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-item:hover {
+            color: #00BFA6;
+        }
+
+        .contact-item i {
+            color: #00BFA6;
+            margin-right: 8px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            background: #00BFA6;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 16px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: rgba(0, 191, 166, 0.3);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-item.active::before {
+            background: #FF4C29;
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-date {
+            color: #00BFA6;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            color: #B8B8CC;
+            font-size: 13px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tournament-detail-container {
+                padding: 20px 15px;
+            }
+
+            .tournament-header {
+                padding: 25px 20px;
+            }
+
+            .tournament-title {
+                font-size: 28px;
+            }
+
+            .tournament-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .tournament-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .tournament-badges {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="homepage.html" class="logo">TourneyHub</a>
+        <nav class="nav-links">
+            <a href="sport.html">Sport</a>
+            <a href="esport.html">E-Sport</a>
+            <a href="my-tournaments.html">My Tournaments</a>
+            <a href="about-us.html">About Us</a>
+        </nav>
+        <div class="user-profile">
+            <span class="user-name">User01</span>
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="tournament-detail-container">
+        <!-- Tournament Header -->
+        <div class="tournament-header">
+            <div class="tournament-badges">
+                <!-- Badges will be dynamically loaded -->
+            </div>
+            <h1 class="tournament-title">Mobile Legends Pro League</h1>
+            <p class="tournament-game">Mobile Legends: Bang Bang - Season 14</p>
+            
+            <div class="tournament-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Total Prize Pool</div>
+                    <div class="stat-value prize">Rp 800.000.000</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Peserta Terdaftar</div>
+                    <div class="stat-value">16 Tim Professional</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Durasi Tournament</div>
+                    <div class="stat-value">10 Juni - 25 Juni 2025</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Status</div>
+                    <div class="stat-value">Sedang Berlangsung</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tournament-content">
+            <!-- Main Content -->
+            <div class="main-content-section">
+                <!-- Tournament Info -->
+                <div class="tournament-info">
+                    <div class="info-section">
+                        <h3 class="info-title">
+                            <i class="fas fa-info-circle"></i>
+                            Tentang Tournament
+                        </h3>
+                        <div class="info-content">
+                            <p id="tournamentDescription">Loading description...</p>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3 class="info-title">
+                            <i class="fas fa-trophy"></i>
+                            Pembagian Hadiah
+                        </h3>
+                        <ul class="info-list">
+                            <li>
+                                <span class="label">Juara 1</span>
+                                <span class="value">Rp 400.000.000</span>
+                            </li>
+                            <li>
+                                <span class="label">Juara 2</span>
+                                <span class="value">Rp 200.000.000</span>
+                            </li>
+                            <li>
+                                <span class="label">Juara 3</span>
+                                <span class="value">Rp 100.000.000</span>
+                            </li>
+                            <li>
+                                <span class="label">Juara 4</span>
+                                <span class="value">Rp 50.000.000</span>
+                            </li>
+                            <li>
+                                <span class="label">Top 8</span>
+                                <span class="value">Rp 12.500.000</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="info-section">
+                        <h3 class="info-title">
+                            <i class="fas fa-rules"></i>
+                            Syarat & Ketentuan
+                        </h3>
+                        <ul class="info-list">
+                            <li>
+                                <span class="label">Minimum Rank</span>
+                                <span class="value">Mythic Glory</span>
+                            </li>
+                            <li>
+                                <span class="label">Anggota Tim</span>
+                                <span class="value">5 Player + 2 Substitute</span>
+                            </li>
+                            <li>
+                                <span class="label">Kewarganegaraan</span>
+                                <span class="value">WNI / Berdomisili di Indonesia</span>
+                            </li>
+                            <li>
+                                <span class="label">Usia Minimum</span>
+                                <span class="value">17 Tahun</span>
+                            </li>
+                            <li>
+                                <span class="label">Format</span>
+                                <span class="value">Best of 3 (BO3)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Registration Card -->
+                <div class="sidebar-card">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-user-plus"></i>
+                        Pendaftaran
+                    </h3>
+                    <a href="registration-form.html?tournament=6861cf683f7ffdee874d0662" class="register-btn" style="display:block;text-align:center;">
+                        Daftar!
+                    </a>
+                    <p style="color: #B8B8CC; font-size: 14px; text-align: center;">
+                        Pendaftaran dibuka hingga 8 Juni 2025
+                    </p>
+                </div>
+
+                <!-- Organizer Info -->
+                <div class="sidebar-card" id="organizerCard" style="display: none;">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-building"></i>
+                        Penyelenggara
+                    </h3>
+                    <div class="organizer-info">
+                        <div class="organizer-avatar" id="organizerAvatar">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="organizer-details">
+                            <h4 id="organizerName">Loading...</h4>
+                            <p id="organizerRole" style="display: none;"></p>
+                        </div>
+                    </div>
+                    <div class="contact-info" id="organizerContact" style="display: none;">
+                        <div class="contact-item" id="organizerEmail" style="display: none;">
+                            <i class="fas fa-envelope"></i>
+                            <span></span>
+                        </div>
+                        <div class="contact-item" id="organizerPhone" style="display: none;">
+                            <i class="fas fa-phone"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="tournament-detail.js"></script>
+    <script>
+    // Ambil id dari query string dan set href tombol daftar
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tournamentId = urlParams.get('id');
+        const registerBtn = document.querySelector('.register-btn');
+        if (registerBtn && tournamentId) {
+            registerBtn.href = `registration-form.html?tournament=${tournamentId}`;
+        }
+    });
+
+    // Fetch dan render data turnamen dinamis
+    document.addEventListener('DOMContentLoaded', async function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tournamentId = urlParams.get('id');
+        if (!tournamentId) return;
+        
+        try {
+            const res = await fetch(`/api/tournaments/${tournamentId}`);
+            const result = await res.json();
+            
+            if (result.success && result.data && result.data.tournament) {
+                const t = result.data.tournament;
+                
+                // Update breadcrumb
+                const breadcrumbCurrent = document.querySelector('.breadcrumb .current');
+                const categoryLink = document.getElementById('categoryLink');
+                
+                if (breadcrumbCurrent) breadcrumbCurrent.textContent = t.title || '-';
+                
+                // Update category link based on tournament type
+                if (categoryLink) {
+                    if (t.type === 'sport') {
+                        categoryLink.textContent = 'Sport';
+                        categoryLink.href = 'sport.html';
+                    } else if (t.type === 'esport') {
+                        categoryLink.textContent = 'E-Sport';
+                        categoryLink.href = 'esport.html';
+                    } else {
+                        categoryLink.textContent = 'Tournament';
+                        categoryLink.href = '#';
+                    }
+                }
+                
+                // Update badges
+                const badges = document.querySelector('.tournament-badges');
+                if (badges) {
+                    badges.innerHTML = '';
+                    
+                    // Add featured badge if tournament is featured (you can add logic here)
+                    // For now, we'll add it based on certain criteria
+                    if (t.status === 'live' || t.status === 'ongoing' || t.currentParticipants > 100) {
+                        const featuredBadge = document.createElement('span');
+                        featuredBadge.className = 'badge featured';
+                        featuredBadge.textContent = 'Featured';
+                        badges.appendChild(featuredBadge);
+                    }
+                    
+                    // Add type badge
+                    if (t.type) {
+                        const typeBadge = document.createElement('span');
+                        typeBadge.className = `badge ${t.type}`;
+                        typeBadge.textContent = t.type === 'esport' ? 'E-Sport' : 'Sport';
+                        badges.appendChild(typeBadge);
+                    }
+                    
+                    // Add status badge
+                    if (t.status === 'live' || t.status === 'ongoing') {
+                        const liveBadge = document.createElement('span');
+                        liveBadge.className = 'badge live';
+                        liveBadge.textContent = 'Live Now';
+                        badges.appendChild(liveBadge);
+                    } else if (t.status === 'open') {
+                        const openBadge = document.createElement('span');
+                        openBadge.className = 'badge registration-open';
+                        openBadge.textContent = 'Registration Open';
+                        badges.appendChild(openBadge);
+                    } else if (t.status === 'registration_closed') {
+                        const closedBadge = document.createElement('span');
+                        closedBadge.className = 'badge registration-closed';
+                        closedBadge.textContent = 'Registration Closed';
+                        badges.appendChild(closedBadge);
+                    } else if (t.status === 'cancelled') {
+                        const cancelledBadge = document.createElement('span');
+                        cancelledBadge.className = 'badge cancelled';
+                        cancelledBadge.textContent = 'Cancelled';
+                        badges.appendChild(cancelledBadge);
+                    } else if (t.status === 'completed') {
+                        const completedBadge = document.createElement('span');
+                        completedBadge.className = 'badge completed';
+                        completedBadge.textContent = 'Completed';
+                        badges.appendChild(completedBadge);
+                    } else if (t.status === 'soon') {
+                        const soonBadge = document.createElement('span');
+                        soonBadge.className = 'badge soon';
+                        soonBadge.textContent = 'Coming Soon';
+                        badges.appendChild(soonBadge);
+                    } else if (t.status === 'draft') {
+                        const draftBadge = document.createElement('span');
+                        draftBadge.className = 'badge draft';
+                        draftBadge.textContent = 'Draft';
+                        badges.appendChild(draftBadge);
+                    }
+                }
+                
+                // Update title
+                const titleEl = document.querySelector('.tournament-title');
+                if (titleEl) titleEl.textContent = t.title || '-';
+                
+                // Update game/sport
+                const gameEl = document.querySelector('.tournament-game');
+                if (gameEl) gameEl.textContent = t.game || t.sport || '-';
+                
+                // Update stats
+                const statsContainer = document.querySelector('.tournament-stats');
+                if (statsContainer) {
+                    // Prize Pool
+                    const prizeEl = statsContainer.querySelector('.stat-value.prize');
+                    if (prizeEl && t.prizePool) {
+                        const totalPrize = (t.prizePool.first || 0) + (t.prizePool.second || 0) + (t.prizePool.third || 0);
+                        prizeEl.textContent = 'Rp ' + totalPrize.toLocaleString('id-ID');
+                    }
+                    
+                    // Participants
+                    const pesertaEl = statsContainer.querySelector('.stat-item:nth-child(2) .stat-value');
+                    if (pesertaEl) {
+                        pesertaEl.textContent = (t.currentParticipants || 0) + ' Peserta';
+                    }
+                    
+                    // Duration
+                    const durasiEl = statsContainer.querySelector('.stat-item:nth-child(3) .stat-value');
+                    if (durasiEl && t.schedule) {
+                        const start = new Date(t.schedule.startDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const end = new Date(t.schedule.endDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        durasiEl.textContent = `${start} - ${end}`;
+                    }
+                    
+                    // Status
+                    const statusEl = statsContainer.querySelector('.stat-item:nth-child(4) .stat-value');
+                    if (statusEl) {
+                        let statusText = 'Unknown';
+                        if (t.status === 'live' || t.status === 'ongoing') statusText = 'Sedang Berlangsung';
+                        else if (t.status === 'open') statusText = 'Pendaftaran Dibuka';
+                        else if (t.status === 'registration_closed') statusText = 'Pendaftaran Ditutup';
+                        else if (t.status === 'cancelled') statusText = 'Dibatalkan';
+                        else if (t.status === 'completed') statusText = 'Selesai';
+                        else if (t.status === 'soon') statusText = 'Segera Hadir';
+                        statusEl.textContent = statusText;
+                    }
+                }
+                
+                // Update description
+                const descriptionEl = document.getElementById('tournamentDescription');
+                if (descriptionEl && t.description) {
+                    descriptionEl.textContent = t.description;
+                } else if (descriptionEl) {
+                    descriptionEl.textContent = 'Deskripsi turnamen tidak tersedia.';
+                }
+                
+                // Update prize distribution
+                const prizeList = document.querySelector('.info-list');
+                if (prizeList && t.prizePool) {
+                    prizeList.innerHTML = '';
+                    
+                    if (t.prizePool.first) {
+                        const firstPrize = document.createElement('li');
+                        firstPrize.innerHTML = '<span class="label">Juara 1</span><span class="value">Rp ' + t.prizePool.first.toLocaleString('id-ID') + '</span>';
+                        prizeList.appendChild(firstPrize);
+                    }
+                    
+                    if (t.prizePool.second) {
+                        const secondPrize = document.createElement('li');
+                        secondPrize.innerHTML = '<span class="label">Juara 2</span><span class="value">Rp ' + t.prizePool.second.toLocaleString('id-ID') + '</span>';
+                        prizeList.appendChild(secondPrize);
+                    }
+                    
+                    if (t.prizePool.third) {
+                        const thirdPrize = document.createElement('li');
+                        thirdPrize.innerHTML = '<span class="label">Juara 3</span><span class="value">Rp ' + t.prizePool.third.toLocaleString('id-ID') + '</span>';
+                        prizeList.appendChild(thirdPrize);
+                    }
+                }
+                
+                // Update terms and conditions
+                const termsList = document.querySelectorAll('.info-list')[1];
+                console.log('Terms data received:', t.termsConditions);
+                if (termsList && t.termsConditions && Array.isArray(t.termsConditions)) {
+                    termsList.innerHTML = '';
+                    
+                    t.termsConditions.forEach(term => {
+                        if (term.title && term.content) {
+                            const termItem = document.createElement('li');
+                            termItem.innerHTML = `<span class="label">${term.title}</span><span class="value">${term.content}</span>`;
+                            termsList.appendChild(termItem);
+                        }
+                    });
+                } else {
+                    console.log('No terms data or invalid format');
+                }
+                
+                // Update registration deadline
+                const registrationDeadline = document.querySelector('.sidebar-card p');
+                if (registrationDeadline && t.schedule && t.schedule.registrationDeadline) {
+                    const deadline = new Date(t.schedule.registrationDeadline).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                    registrationDeadline.textContent = `Pendaftaran dibuka hingga ${deadline}`;
+                }
+                
+                // Update organizer information
+                const organizerCard = document.getElementById('organizerCard');
+                if (organizerCard && t.organizer && t.organizer.name) {
+                    organizerCard.style.display = 'block';
+                    
+                    // Update organizer name
+                    const organizerName = document.getElementById('organizerName');
+                    if (organizerName) organizerName.textContent = t.organizer.name;
+                    
+                    // Update organizer role
+                    const organizerRole = document.getElementById('organizerRole');
+                    if (organizerRole && t.organizer.role) {
+                        organizerRole.textContent = t.organizer.role;
+                        organizerRole.style.display = 'block';
+                    }
+                    
+                    // Update organizer icon based on tournament type
+                    const organizerAvatar = document.getElementById('organizerAvatar');
+                    if (organizerAvatar) {
+                        const icon = t.type === 'sport' ? 'fas fa-futbol' : 'fas fa-gamepad';
+                        organizerAvatar.innerHTML = `<i class="${icon}"></i>`;
+                    }
+                    
+                    // Update contact information
+                    const organizerContact = document.getElementById('organizerContact');
+                    const organizerEmail = document.getElementById('organizerEmail');
+                    const organizerPhone = document.getElementById('organizerPhone');
+                    
+                    if (t.organizer.email) {
+                        organizerEmail.style.display = 'block';
+                        organizerEmail.querySelector('span').textContent = t.organizer.email;
+                        organizerContact.style.display = 'block';
+                    }
+                    
+                    if (t.organizer.phone) {
+                        organizerPhone.style.display = 'block';
+                        organizerPhone.querySelector('span').textContent = t.organizer.phone;
+                        organizerContact.style.display = 'block';
+                    }
+                }
+                
+            } else {
+                alert('Turnamen tidak ditemukan');
+                window.location.href = 'homepage.html';
+            }
+        } catch (e) {
+            console.error('Error loading tournament:', e);
+            alert('Gagal mengambil data turnamen');
+        }
+    });
+    </script>
+</body>
+</html> 

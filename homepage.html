@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - Homepage</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style-homepage.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">TourneyHub</div>
+        <nav class="nav-links">
+            <a href="sport.html">Sport</a>
+            <a href="esport.html">E-Sport</a>
+            <a href="my-tournaments.html">My Tournaments</a>
+            <a href="about-us.html">About Us</a>
+        </nav>
+        <div class="header-right">
+            <div class="user-profile">
+                <span class="user-name">User01</span>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Featured Events Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-fire"></i>
+                        Featured Events
+                    </h2>
+                    <p class="section-subtitle">Tournament populer yang sedang trending</p>
+                </div>
+            </div>
+            
+            <div class="card-container">
+                <div class="card-slider" id="featuredSlider">
+                    <!-- Featured cards will be dynamically loaded -->
+                    <div class="event-card">
+                        <div class="card-header">
+                            <span class="event-badge">Featured</span>
+                            <div class="event-status">
+                                <div class="status-dot"></div>
+                                <span>Loading...</span>
+                            </div>
+                        </div>
+                        <h3 class="event-title">Loading tournaments...</h3>
+                        <p class="event-game">Please wait</p>
+                        <div class="event-info">
+                            <div class="info-item">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Loading data...</span>
+                            </div>
+                        </div>
+                        <div class="event-prize">
+                            <div class="prize-label">Loading...</div>
+                            <div class="prize-amount">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" onclick="slideLeft('featuredSlider')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn" onclick="slideRight('featuredSlider')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- E-Sport Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-gamepad"></i>
+                        E-Sport Events
+                    </h2>
+                    <p class="section-subtitle">Tournament gaming terbaru dan terpopuler</p>
+                </div>
+                <a href="esport.html" class="view-all-btn">Lihat Semua</a>
+            </div>
+            <div class="card-container">
+                <div class="card-slider" id="esportSlider">
+                    <!-- E-Sport cards will be dynamically loaded -->
+                    <div class="event-card">
+                        <div class="card-header">
+                            <span class="event-badge esport">E-Sport</span>
+                            <div class="event-status">
+                                <div class="status-dot"></div>
+                                <span>Loading...</span>
+                            </div>
+                        </div>
+                        <h3 class="event-title">Loading tournaments...</h3>
+                        <p class="event-game">Please wait</p>
+                        <div class="event-info">
+                            <div class="info-item">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Loading data...</span>
+                            </div>
+                        </div>
+                        <div class="event-prize">
+                            <div class="prize-label">Loading...</div>
+                            <div class="prize-amount">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" onclick="slideLeft('esportSlider')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn" onclick="slideRight('esportSlider')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Sport Section -->
+        <section class="content-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-futbol"></i>
+                        Sport Events
+                    </h2>
+                    <p class="section-subtitle">Kompetisi olahraga terbaru dari berbagai cabang</p>
+                </div>
+                <a href="sport.html" class="view-all-btn">Lihat Semua</a>
+            </div>
+            <div class="card-container">
+                <div class="card-slider" id="sportSlider">
+                    <!-- Sport cards will be dynamically loaded -->
+                    <div class="event-card">
+                        <div class="card-header">
+                            <span class="event-badge sport">Sport</span>
+                            <div class="event-status">
+                                <div class="status-dot"></div>
+                                <span>Loading...</span>
+                            </div>
+                        </div>
+                        <h3 class="event-title">Loading tournaments...</h3>
+                        <p class="event-game">Please wait</p>
+                        <div class="event-info">
+                            <div class="info-item">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Loading data...</span>
+                            </div>
+                        </div>
+                        <div class="event-prize">
+                            <div class="prize-label">Loading...</div>
+                            <div class="prize-amount">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" onclick="slideLeft('sportSlider')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn" onclick="slideRight('sportSlider')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="tournament-data.js"></script>
+    <script src="homepage.js"></script>
+    
+    <!-- Fallback if tournament data fails to load -->
+    <script>
+        // Check if tournament data loaded successfully
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                if (typeof tournamentData === 'undefined') {
+                    console.error('Tournament data failed to load, using fallback data');
+                    // Load fallback data
+                    loadFallbackData();
+                }
+            }, 2000);
+        });
+        
+        function loadFallbackData() {
+            // Simple fallback data
+            const fallbackData = {
+                featured: [
+                    {
+                        id: 1,
+                        title: "Indonesia Gaming Championship 2025",
+                        game: "Multi-Game Tournament",
+                        status: "live",
+                        statusText: "Live Now",
+                        date: "15 Juni - 20 Juni 2025",
+                        participants: "1,250 Peserta",
+                        category: "Grand Final",
+                        prize: "Rp 500.000.000"
+                    }
+                ],
+                esport: [
+                    {
+                        id: 101,
+                        title: "Mobile Legends Professional League",
+                        game: "Mobile Legends",
+                        status: "live",
+                        statusText: "Live Now",
+                        date: "1 Juni - 30 Juni 2025",
+                        participants: "16 Tim",
+                        platform: "Mobile",
+                        prize: "Rp 500.000.000"
+                    }
+                ],
+                sport: [
+                    {
+                        id: 201,
+                        title: "Liga Futsal Nusantara",
+                        sport: "Futsal",
+                        status: "live",
+                        statusText: "Live Now",
+                        date: "5 Juni - 20 Juli 2025",
+                        participants: "32 Tim",
+                        location: "Surabaya, Indonesia",
+                        prize: "Rp 200.000.000"
+                    }
+                ]
+            };
+            
+            // Set global tournament data
+            window.tournamentData = fallbackData;
+            
+            // Reload cards
+            if (typeof loadTournamentCards === 'function') {
+                loadTournamentCards();
+            }
+        }
+    </script>
+</body>
+</html> 

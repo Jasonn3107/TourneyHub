@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - Daftar Akun Baru</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">TourneyHub</a>
+    </header>
+
+    <main class="main-content">
+        <div class="signup-container">
+            <div class="form-section">
+                <div class="form-header">
+                    <h1 class="form-title">Daftar Sekarang</h1>
+                    <p class="form-subtitle">Bergabunglah dengan komunitas gamer dan atlet terbaik Indonesia</p>
+                </div>
+
+                <form class="signup-form" id="signupForm">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">Nama</label>
+                        <input type="text" class="form-input" id="firstName" name="firstName" placeholder="Masukkan nama lengkap" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" class="form-input" id="username" name="username" placeholder="Pilih username unik" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" class="form-input" id="email" name="email" placeholder="contoh@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" class="form-input" id="password" name="password" placeholder="Minimal 8 karakter" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Konfirmasi Password</label>
+                        <input type="password" class="form-input" id="confirmPassword" name="confirmPassword" placeholder="Ulangi password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tipe Akun</label>
+                        <div class="account-type-selection">
+                            <div class="account-type-option" data-type="participant">
+                                <input type="radio" id="participant" name="accountType" value="participant" required>
+                                <label for="participant" class="account-type-card">
+                                    <div class="account-type-icon">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="account-type-content">
+                                        <h3>Participant</h3>
+                                        <p>Ikuti tournament dan kompetisi</p>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="account-type-option" data-type="host">
+                                <input type="radio" id="host" name="accountType" value="host" required>
+                                <label for="host" class="account-type-card">
+                                    <div class="account-type-icon">
+                                        <i class="fas fa-crown"></i>
+                                    </div>
+                                    <div class="account-type-content">
+                                        <h3>Host</h3>
+                                        <p>Buat dan kelola tournament</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox-input" id="terms" name="terms" required>
+                        <label class="checkbox-label" for="terms">
+                            Saya setuju dengan <a href="#terms">Syarat & Ketentuan</a> dan <a href="#privacy">Kebijakan Privasi</a> TourneyHub
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Daftar Akun</span>
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <span>Memproses...</span>
+                        </div>
+                    </button>
+                </form>
+
+                <div class="login-link">
+                    Sudah punya akun? <a href="login.html">Masuk di sini</a>
+                </div>
+            </div>
+
+            <div class="illustration-section">
+                <div class="illustration-content">
+                    <div class="illustration-placeholder">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h2 class="illustration-title">Bergabung dengan Komunitas</h2>
+                    <p class="illustration-text">Dapatkan akses ke tournament eksklusif dan bertemu dengan gamer terbaik</p>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Akses ke semua tournament</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Profile pribadi</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Komunitas aktif 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="signup.js"></script>
+</body>
+</html> 

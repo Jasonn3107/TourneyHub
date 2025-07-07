@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - Edit Tournament</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1E1E2F;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 2px solid #B8B8CC;
+            color: #B8B8CC;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            border-color: #00BFA6;
+            color: #00BFA6;
+        }
+
+        /* Main Container */
+        .edit-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .page-subtitle {
+            color: #B8B8CC;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Form Styles */
+        .edit-form {
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #00BFA6;
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #B8B8CC;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #00BFA6;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-select option {
+            background: #2A2A3F;
+            color: white;
+        }
+
+        /* Prize Pool Section */
+        .prize-section {
+            background: rgba(255, 76, 41, 0.1);
+            border: 1px solid rgba(255, 76, 41, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .prize-title {
+            color: #FF4C29;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Action Buttons */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 2px solid #B8B8CC;
+            color: #B8B8CC;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            border-color: #FF4C29;
+            color: #FF4C29;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #00BFA6, #00A896);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 191, 166, 0.4);
+        }
+
+        .btn-save:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #B8B8CC;
+        }
+
+        .loading i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Terms & Conditions Styles */
+        .terms-container {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terms-header {
+            margin-bottom: 20px;
+        }
+
+        .terms-description {
+            color: #B8B8CC;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .terms-list {
+            margin-bottom: 20px;
+        }
+
+        .term-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .term-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .term-row .form-group {
+            margin-bottom: 0;
+        }
+
+        .term-row .form-label {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .term-row .form-input {
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .btn-remove-term {
+            background: #F44336;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-remove-term:hover {
+            background: #D32F2F;
+            transform: scale(1.05);
+        }
+
+        .btn-add-term {
+            background: linear-gradient(135deg, #00BFA6, #00A896);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .btn-add-term:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 191, 166, 0.3);
+        }
+
+        .terms-preview {
+            background: rgba(0, 191, 166, 0.05);
+            border: 1px solid rgba(0, 191, 166, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .preview-title {
+            color: #00BFA6;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preview-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 80px;
+        }
+
+        .preview-placeholder {
+            color: #B8B8CC;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .preview-term {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-term:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .preview-term-title {
+            color: #00BFA6;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .preview-term-content {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .term-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .edit-container {
+                padding: 0 15px;
+            }
+            
+            .edit-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">TourneyHub</div>
+        <a href="homepage-host.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            Kembali ke Dashboard
+        </a>
+    </header>
+
+    <div class="edit-container">
+        <div class="page-title">
+            <i class="fas fa-edit"></i>
+            Edit Tournament
+        </div>
+        <p class="page-subtitle">Perbarui informasi turnamen Anda</p>
+
+        <form class="edit-form" id="editTournamentForm">
+            <div id="loadingState" class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Memuat data turnamen...</p>
+            </div>
+
+            <div id="formContent" style="display: none;">
+                <!-- Basic Information -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Informasi Dasar
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nama Turnamen *</label>
+                            <input type="text" class="form-input" id="tournamentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Game/Sport *</label>
+                            <input type="text" class="form-input" id="tournamentGame" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Jenis Turnamen *</label>
+                            <select class="form-select" id="tournamentType" required>
+                                <option value="">Pilih Jenis Turnamen</option>
+                                <option value="esport">E-Sport</option>
+                                <option value="sport">Sport</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Kategori</label>
+                            <select class="form-select" id="tournamentCategory">
+                                <option value="">Pilih Kategori</option>
+                                <option value="MOBA">MOBA</option>
+                                <option value="FPS">FPS</option>
+                                <option value="Battle Royale">Battle Royale</option>
+                                <option value="Strategy">Strategy</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Fighting">Fighting</option>
+                                <option value="Racing">Racing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        Jadwal Turnamen
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Deadline Pendaftaran *</label>
+                            <input type="date" class="form-input" id="registrationDeadline" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tanggal Mulai *</label>
+                            <input type="date" class="form-input" id="startDate" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Tanggal Selesai *</label>
+                            <input type="date" class="form-input" id="endDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Maksimal Peserta *</label>
+                            <input type="number" class="form-input" id="maxParticipants" required min="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prize Pool -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-trophy"></i>
+                        Hadiah Turnamen
+                    </h3>
+                    <div class="prize-section">
+                        <div class="prize-title">Pembagian Hadiah</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Juara 1 (IDR) *</label>
+                                <input type="number" class="form-input" id="firstPrize" required min="0">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Juara 2 (IDR)</label>
+                                <input type="number" class="form-input" id="secondPrize" min="0">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Juara 3 (IDR)</label>
+                                <input type="number" class="form-input" id="thirdPrize" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location & Description -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Lokasi & Deskripsi
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">Lokasi</label>
+                        <input type="text" class="form-input" id="location" placeholder="e.g., Jakarta, Indonesia atau Online">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Deskripsi Turnamen</label>
+                        <textarea class="form-textarea" id="description" placeholder="Jelaskan detail turnamen, aturan, dan informasi penting lainnya..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Organizer Information -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-building"></i>
+                        Informasi Penyelenggara
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Nama Penyelenggara</label>
+                            <input type="text" class="form-input" id="organizerName" placeholder="Contoh: Moonton Indonesia">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Peran/Jabatan</label>
+                            <input type="text" class="form-input" id="organizerRole" placeholder="Contoh: Official Tournament Organizer">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Penyelenggara</label>
+                            <input type="email" class="form-input" id="organizerEmail" placeholder="contact@organizer.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Nomor Telepon</label>
+                            <input type="tel" class="form-input" id="organizerPhone" placeholder="+62 21 1234 5678">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-toggle-on"></i>
+                        Status Turnamen
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">Status *</label>
+                        <select class="form-select" id="tournamentStatus" required>
+                            <option value="">Pilih Status Turnamen</option>
+                            <option value="open">Pendaftaran Dibuka</option>
+                            <option value="registration_closed">Pendaftaran Ditutup</option>
+                            <option value="ongoing">Sedang Berlangsung</option>
+                            <option value="completed">Selesai</option>
+                            <option value="cancelled">Dibatalkan</option>
+                            <option value="soon">Segera Hadir</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Terms & Conditions -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-file-contract"></i>
+                        Syarat & Ketentuan
+                    </h3>
+                    <div class="terms-container">
+                        <div class="terms-header">
+                            <p class="terms-description">Tambahkan syarat dan ketentuan turnamen. Hanya syarat yang memiliki judul dan isi yang lengkap yang akan ditampilkan.</p>
+                        </div>
+                        
+                        <div id="termsList" class="terms-list">
+                            <!-- Terms will be generated here -->
+                        </div>
+                        
+                        <button type="button" class="btn-add-term" onclick="addTermRow()">
+                            <i class="fas fa-plus"></i>
+                            Tambah Syarat
+                        </button>
+                        
+                        <div class="terms-preview">
+                            <h4 class="preview-title">
+                                <i class="fas fa-eye"></i>
+                                Pratinjau Tampilan
+                            </h4>
+                            <div id="termsPreview" class="preview-content">
+                                <p class="preview-placeholder">Pratinjau akan muncul di sini...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="goBack()">Batal</button>
+                    <button type="submit" class="btn-save" id="saveBtn">
+                        <i class="fas fa-save"></i>
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let tournamentId = null;
+        let tournamentData = null;
+
+        // Get tournament ID from URL
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generate unique session ID for this tab if not exists
+            if (!sessionStorage.getItem('sessionId')) {
+                const sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('sessionId', sessionId);
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            tournamentId = urlParams.get('id');
+            
+            if (!tournamentId) {
+                alert('ID Turnamen tidak ditemukan');
+                goBack();
+                return;
+            }
+
+            loadTournamentData();
+        });
+
+        // Utility function to get user data with session isolation
+        function getUserData() {
+            const sessionId = sessionStorage.getItem('sessionId');
+            if (sessionId) {
+                // Try sessionStorage first
+                const sessionPrefix = sessionId + '_';
+                const userData = sessionStorage.getItem(sessionPrefix + 'userData');
+                const userName = sessionStorage.getItem(sessionPrefix + 'userName');
+                const accountType = sessionStorage.getItem(sessionPrefix + 'accountType');
+                const token = sessionStorage.getItem(sessionPrefix + 'token');
+                
+                if (userData && userName && accountType && token) {
+                    return {
+                        userData: JSON.parse(userData),
+                        userName: userName,
+                        accountType: accountType,
+                        token: token
+                    };
+                }
+            }
+            
+            // Fallback to localStorage (backward compatibility)
+            const userData = localStorage.getItem('userData');
+            const userName = localStorage.getItem('userName');
+            const accountType = localStorage.getItem('accountType');
+            const token = localStorage.getItem('token');
+            
+            if (userData && userName && accountType && token) {
+                return {
+                    userData: JSON.parse(userData),
+                    userName: userName,
+                    accountType: accountType,
+                    token: token
+                };
+            }
+            
+            return null;
+        }
+
+        // Load tournament data from backend
+        async function loadTournamentData() {
+            const userInfo = getUserData();
+            if (!userInfo || !userInfo.token) {
+                alert('Sesi Anda telah berakhir. Silakan login kembali.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/tournaments/${tournamentId}`, {
+                    headers: { 'Authorization': `Bearer ${userInfo.token}` }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data turnamen');
+                }
+
+                const data = await response.json();
+                tournamentData = data.data.tournament;
+                
+                if (!tournamentData) {
+                    throw new Error('Turnamen tidak ditemukan');
+                }
+
+                // Populate form with tournament data
+                populateForm(tournamentData);
+                
+                // Hide loading, show form
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('formContent').style.display = 'block';
+
+            } catch (error) {
+                alert('Error: ' + error.message);
+                goBack();
+            }
+        }
+
+        // Populate form with tournament data
+        function populateForm(tournament) {
+            document.getElementById('tournamentName').value = tournament.title || '';
+            document.getElementById('tournamentGame').value = tournament.game || '';
+            document.getElementById('tournamentType').value = tournament.type || '';
+            document.getElementById('tournamentCategory').value = tournament.category || '';
+            document.getElementById('tournamentStatus').value = tournament.status || '';
+            
+            // Schedule
+            if (tournament.schedule) {
+                if (tournament.schedule.registrationDeadline) {
+                    document.getElementById('registrationDeadline').value = formatDateForInput(tournament.schedule.registrationDeadline);
+                }
+                if (tournament.schedule.startDate) {
+                    document.getElementById('startDate').value = formatDateForInput(tournament.schedule.startDate);
+                }
+                if (tournament.schedule.endDate) {
+                    document.getElementById('endDate').value = formatDateForInput(tournament.schedule.endDate);
+                }
+            }
+            
+            document.getElementById('maxParticipants').value = tournament.maxParticipants || '';
+            
+            // Prize Pool
+            if (tournament.prizePool) {
+                document.getElementById('firstPrize').value = tournament.prizePool.first || '';
+                document.getElementById('secondPrize').value = tournament.prizePool.second || '';
+                document.getElementById('thirdPrize').value = tournament.prizePool.third || '';
+            }
+            
+            // Location & Description
+            if (tournament.location && tournament.location.address) {
+                document.getElementById('location').value = tournament.location.address;
+            }
+            document.getElementById('description').value = tournament.description || '';
+            
+            // Organizer Information
+            if (tournament.organizer) {
+                document.getElementById('organizerName').value = tournament.organizer.name || '';
+                document.getElementById('organizerRole').value = tournament.organizer.role || '';
+                document.getElementById('organizerEmail').value = tournament.organizer.email || '';
+                document.getElementById('organizerPhone').value = tournament.organizer.phone || '';
+            }
+            
+            // Terms & Conditions
+            if (tournament.termsConditions && Array.isArray(tournament.termsConditions)) {
+                populateTerms(tournament.termsConditions);
+            } else {
+                // Initialize with 4 empty rows
+                initializeTerms();
+            }
+        }
+
+        // Format date for input field
+        function formatDateForInput(dateString) {
+            const date = new Date(dateString);
+            return date.toISOString().split('T')[0];
+        }
+
+        // Initialize terms with 2 empty rows
+        function initializeTerms() {
+            const termsList = document.getElementById('termsList');
+            termsList.innerHTML = '';
+            
+            for (let i = 0; i < 2; i++) {
+                addTermRow();
+            }
+        }
+
+        // Add new term row
+        function addTermRow() {
+            const termsList = document.getElementById('termsList');
+            const termIndex = termsList.children.length;
+            
+            const termRow = document.createElement('div');
+            termRow.className = 'term-row';
+            termRow.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Judul Syarat</label>
+                    <input type="text" class="form-input term-title" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Isi Syarat</label>
+                    <input type="text" class="form-input term-content" oninput="updatePreview()">
+                </div>
+                <button type="button" class="btn-remove-term" onclick="removeTermRow(this)">
+                    <i class="fas fa-trash"></i>
+                    Hapus
+                </button>
+            `;
+            
+            termsList.appendChild(termRow);
+        }
+
+        // Remove term row
+        function removeTermRow(button) {
+            button.closest('.term-row').remove();
+            updatePreview();
+        }
+
+        // Populate terms from existing data
+        function populateTerms(terms) {
+            const termsList = document.getElementById('termsList');
+            termsList.innerHTML = '';
+            
+            if (terms && terms.length > 0) {
+                terms.forEach(term => {
+                    const termRow = document.createElement('div');
+                    termRow.className = 'term-row';
+                    termRow.innerHTML = `
+                        <div class="form-group">
+                            <label class="form-label">Judul Syarat</label>
+                            <input type="text" class="form-input term-title" value="${term.title || ''}" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Isi Syarat</label>
+                            <input type="text" class="form-input term-content" value="${term.content || ''}" oninput="updatePreview()">
+                        </div>
+                        <button type="button" class="btn-remove-term" onclick="removeTermRow(this)">
+                            <i class="fas fa-trash"></i>
+                            Hapus
+                        </button>
+                    `;
+                    
+                    termsList.appendChild(termRow);
+                });
+            } else {
+                initializeTerms();
+            }
+            
+            updatePreview();
+        }
+
+        // Update preview
+        function updatePreview() {
+            const preview = document.getElementById('termsPreview');
+            const terms = getTermsData();
+            
+            if (terms.length === 0) {
+                preview.innerHTML = '<p class="preview-placeholder">Pratinjau akan muncul di sini...</p>';
+                return;
+            }
+            
+            let previewHTML = '';
+            terms.forEach(term => {
+                previewHTML += `
+                    <div class="preview-term">
+                        <div class="preview-term-title">${term.title}</div>
+                        <div class="preview-term-content">${term.content}</div>
+                    </div>
+                `;
+            });
+            
+            preview.innerHTML = previewHTML;
+        }
+
+        // Get terms data
+        function getTermsData() {
+            const terms = [];
+            const termRows = document.querySelectorAll('.term-row');
+            
+            termRows.forEach(row => {
+                const title = row.querySelector('.term-title').value.trim();
+                const content = row.querySelector('.term-content').value.trim();
+                
+                if (title && content) {
+                    terms.push({ title, content });
+                }
+            });
+            
+            return terms;
+        }
+
+        // Handle form submission
+        document.getElementById('editTournamentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const saveBtn = document.getElementById('saveBtn');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+            try {
+                const formData = {
+                    title: document.getElementById('tournamentName').value,
+                    game: document.getElementById('tournamentGame').value,
+                    type: document.getElementById('tournamentType').value,
+                    category: document.getElementById('tournamentCategory').value,
+                    status: document.getElementById('tournamentStatus').value,
+                    maxParticipants: parseInt(document.getElementById('maxParticipants').value),
+                    description: document.getElementById('description').value,
+                    termsConditions: getTermsData(),
+                    schedule: {
+                        registrationDeadline: document.getElementById('registrationDeadline').value,
+                        startDate: document.getElementById('startDate').value,
+                        endDate: document.getElementById('endDate').value
+                    },
+                    prizePool: {
+                        first: parseInt(document.getElementById('firstPrize').value) || 0,
+                        second: parseInt(document.getElementById('secondPrize').value) || 0,
+                        third: parseInt(document.getElementById('thirdPrize').value) || 0
+                    },
+                    location: {
+                        address: document.getElementById('location').value
+                    },
+                    organizer: {
+                        name: document.getElementById('organizerName').value,
+                        role: document.getElementById('organizerRole').value,
+                        email: document.getElementById('organizerEmail').value,
+                        phone: document.getElementById('organizerPhone').value
+                    }
+                };
+
+                // Debug: Log the terms data
+                console.log('Terms data being sent:', formData.termsConditions);
+
+                const userInfo = getUserData();
+                if (!userInfo || !userInfo.token) {
+                    alert('Sesi Anda telah berakhir. Silakan login kembali.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                const response = await fetch(`/api/tournaments/${tournamentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${userInfo.token}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Gagal memperbarui turnamen');
+                }
+
+                alert('Turnamen berhasil diperbarui!');
+                goBack();
+
+            } catch (error) {
+                alert('Error: ' + error.message);
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Perubahan';
+            }
+        });
+
+        // Go back function
+        function goBack() {
+            window.location.href = 'homepage-host.html';
+        }
+    </script>
+</body>
+</html> 

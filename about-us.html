@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TourneyHub - About Us</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style-homepage.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* About Us Specific Styles */
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Section */
+        .about-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: #D9D9D9;
+            margin-bottom: 20px;
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            background-clip: initial;
+        }
+
+        .about-subtitle {
+            font-size: 20px;
+            color: #B8B8CC;
+            margin-bottom: 40px;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .mission-icon {
+            font-size: 48px;
+            color: #00BFA6;
+            margin-bottom: 20px;
+        }
+
+        .mission-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .mission-text {
+            font-size: 18px;
+            color: #B8B8CC;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: #00BFA6;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: #B8B8CC;
+            line-height: 1.6;
+        }
+
+
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            background: linear-gradient(145deg, #2A2A3F 0%, #1E1E2F 100%);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #B8B8CC;
+        }
+
+        .contact-item i {
+            color: #00BFA6;
+            font-size: 18px;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #2A2A3F;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            background: #3A3A4F;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-title {
+                font-size: 36px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo" onclick="window.location.href='homepage.html'" style="cursor:pointer;">TourneyHub</div>
+        <nav class="nav-links">
+            <a href="sport.html">Sport</a>
+            <a href="esport.html">E-Sport</a>
+            <a href="my-tournaments.html">My Tournaments</a>
+            <a href="about-us.html" class="active">About Us</a>
+        </nav>
+        <div class="header-right">
+            <div class="user-profile">
+                <span class="user-name">User01</span>
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="about-container">
+        <!-- Header -->
+        <div class="about-header">
+            <h1 class="about-title">About TourneyHub</h1>
+            <p class="about-subtitle">Platform Turnamen Terdepan untuk Komunitas Olahraga & Gaming Indonesia</p>
+        </div>
+
+        <!-- Mission Section -->
+        <div class="mission-section">
+            <div class="mission-icon">
+                <i class="fas fa-bullseye"></i>
+            </div>
+            <h2 class="mission-title">Misi Kami</h2>
+            <p class="mission-text">
+                TourneyHub hadir untuk menghubungkan komunitas gaming Indonesia melalui platform turnamen yang inovatif. 
+                Kami berkomitmen untuk memberikan pengalaman terbaik bagi host dan participant dalam mengelola dan berpartisipasi 
+                dalam turnamen esport dan olahraga digital.
+            </p>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <h2 class="section-title">Fitur Unggulan</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="feature-title">Turnamen Terorganisir</h3>
+                    <p class="feature-description">
+                        Sistem manajemen turnamen yang lengkap dengan fitur pendaftaran, 
+                        bracket management, dan tracking progress real-time.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Keamanan Terjamin</h3>
+                    <p class="feature-description">
+                        Sistem keamanan yang kuat untuk melindungi data participant dan 
+                        memastikan fair play dalam setiap turnamen.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="feature-title">Support 24/7</h3>
+                    <p class="feature-description">
+                        Tim support yang siap membantu host dan participant 
+                        dalam mengatasi kendala teknis dan pertanyaan.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <p style="color: #B8B8CC; margin-bottom: 30px;">
+                Punya pertanyaan atau saran? Jangan ragu untuk menghubungi tim kami.
+            </p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@tourneyhub.id</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+62 21 1234 5678</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-instagram"></i>
+                    <span>@tourneyhub.id</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-twitter"></i>
+                    <span>@tourneyhub_id</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Set username from localStorage/sessionStorage
+        function getUserData() {
+            const sessionId = sessionStorage.getItem('sessionId');
+            if (sessionId) {
+                const sessionPrefix = sessionId + '_';
+                const userData = sessionStorage.getItem(sessionPrefix + 'userData');
+                const userName = sessionStorage.getItem(sessionPrefix + 'userName');
+                if (userData) {
+                    try {
+                        const user = JSON.parse(userData);
+                        return user.username || user.firstName || userName || 'User01';
+                    } catch (e) {}
+                }
+                if (userName) return userName;
+            }
+            // Fallback to localStorage
+            const userData = localStorage.getItem('userData');
+            const userName = localStorage.getItem('userName');
+            if (userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    return user.username || user.firstName || userName || 'User01';
+                } catch (e) {}
+            }
+            if (userName) return userName;
+            return 'User01';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var userNameElement = document.querySelector('.user-name');
+            if (userNameElement) {
+                userNameElement.textContent = getUserData();
+            }
+        });
+    </script>
+    <script>
+    function handleLogout() {
+        localStorage.removeItem('userData');
+        localStorage.removeItem('userName');
+        sessionStorage.clear();
+        window.location.href = 'index.html';
+    }
+    </script>
+</body>
+</html>
